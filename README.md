@@ -124,7 +124,7 @@ references/host-setup-zh.md
 
 ## 新主机依赖
 
-同事的新主机需要安装：
+使用者的新主机需要安装：
 
 | 组件 | 用途 |
 | --- | --- |
@@ -144,7 +144,7 @@ references/host-setup-zh.md
 
 ## 需要分发的文件清单
 
-把这套 skill 发给同事时，保留下面这些文件和目录：
+这套 skill文件和目录：
 
 ```text
 skill/
@@ -161,17 +161,6 @@ skill/
   scripts/
     Export-QuartoBilingualPdf.ps1
 ```
-
-不需要分发：
-
-```text
-.git/
-.agents/
-.codex/
-临时生成的 *.typ
-临时生成的测试 PDF
-```
-
 ---
 
 ## 常见问题
