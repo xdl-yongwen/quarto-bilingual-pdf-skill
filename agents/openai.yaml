@@ -1,0 +1,6 @@
+interface:
+  display_name: "Quarto Bilingual Formatter"
+  short_description: "Format bilingual Quarto docs and export PDFs."
+  default_prompt: "Use $skill to format this Quarto Markdown file into Chinese and English versions and export PDFs."
+policy:
+  allow_implicit_invocation: true

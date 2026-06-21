@@ -1,0 +1,37 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Local runtime state
+.env
+.env.*
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Quarto / Typst generated files
+/.quarto/
+*_files/
+*.typ
+*.pdf
+*.html
+*.docx
+*.pptx
+
+# Generated bilingual QMD outputs from local test runs
+*-zh-cn.qmd
+*-en.qmd
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+~$*
+
+# Local document assets used while testing
+pic/

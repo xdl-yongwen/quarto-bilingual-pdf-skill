@@ -1,0 +1,24 @@
+/* Quarto HTML/reveal companion styling for bilingual XDL/GPU documents. */
+
+:root {
+  --xdl-code-bg: #101820;
+  --xdl-code-fg: #e6edf3;
+  --xdl-code-border: #2e4057;
+}
+
+pre.sourceCode,
+div.sourceCode pre,
+.reveal pre code {
+  background: var(--xdl-code-bg) !important;
+  color: var(--xdl-code-fg) !important;
+  border: 1px solid var(--xdl-code-border);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  font-family: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
+}
+
+.callout-important { border-left-color: #c62828 !important; background: #fff8f8; }
+.callout-note { border-left-color: #1565c0 !important; background: #f7fbff; }
+.callout-warning { border-left-color: #b45309 !important; background: #fffcf3; }
+.callout-tip { border-left-color: #2e7d32 !important; background: #f7fcf9; }
+.callout-caution { border-left-color: #6a1b9a !important; background: #fbf9ff; }
