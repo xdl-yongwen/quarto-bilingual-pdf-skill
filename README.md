@@ -59,7 +59,7 @@
 C:\Users\azu\Documents\quarto\gpu\skill\scripts\Export-QuartoBilingualPdf.ps1
 ```
 
-改成自己电脑上 `skill\scripts\Export-QuartoBilingualPdf.ps1` 的实际绝对路径。例如，如果同事把 `skill` 放在 `D:\quarto\gpu\skill`，就改成：
+改成自己电脑上 `skill\scripts\Export-QuartoBilingualPdf.ps1` 的实际绝对路径。例如，如果使用者把 `skill` 放在 `D:\quarto\gpu\skill`，就改成：
 
 ```text
 D:\quarto\gpu\skill\scripts\Export-QuartoBilingualPdf.ps1
