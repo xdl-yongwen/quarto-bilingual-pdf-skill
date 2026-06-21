@@ -58,6 +58,15 @@ powershell -ExecutionPolicy Bypass -File C:\Users\azu\Documents\quarto\gpu\skill
 
 在 QMD 文件所在目录运行：
 
+推荐路线：
+
+| 需求 | 推荐脚本 | 说明 |
+| --- | --- | --- |
+| 已有 QMD，只需要统一格式并导出 PDF | `Convert-QuartoOfflineFormat.ps1` | 离线、快速、不调用 Codex，默认生成 `-formatted.qmd` 和 PDF |
+| 新写 QMD，已经按照 `references/quarto-formatting-patterns.md` 的规则组织 | `Convert-QuartoOfflineFormat.ps1` | 默认推荐方式，默认直接导出 PDF |
+| 需要生成中文/英文两个版本，并追求翻译和改写准确度 | `Export-QuartoBilingualPdf.ps1` | 调用 Codex，会消耗 token |
+| 手动已经改好 QMD，只需要导出 PDF | `Export-QuartoBilingualPdf.ps1 -RenderOnly` | 不调用 Codex |
+
 下面命令中的 `C:\Users\azu\Documents\quarto\gpu\skill\scripts\Export-QuartoBilingualPdf.ps1` 是示例路径。使用者需要根据自己电脑上 `skill` 目录的实际位置，改成自己的脚本绝对路径。例如如果 `skill` 放在 `D:\quarto\gpu\skill`，脚本路径就是 `D:\quarto\gpu\skill\scripts\Export-QuartoBilingualPdf.ps1`。
 
 ```powershell
@@ -89,6 +98,23 @@ powershell -ExecutionPolicy Bypass -File C:\Users\azu\Documents\quarto\gpu\skill
 ```
 
 当脚本需要调用 Codex 生成新的 CN/EN QMD 时，会分成两个彼此独立的进度阶段。第一阶段是 QMD 内容生成，按自己的 0-100% 计算，例如 `Generate QMD [########################] 100% done elapsed 00:04:05`；只有目标 QMD 文件已经出现时才会显示 100%。第二阶段是 Codex CLI 退出守护，是新的独立进度，例如 `Codex exit [######------------------] 25% files ready elapsed 00:01:00`。第二阶段不表示 QMD 内容还在继续生成，而是在等待 Codex 子进程正常退出。
+
+## 离线格式转换
+
+如果只想把 QMD 调整为当前 PDF 样式规则，不需要 Codex 翻译或润色，优先使用离线格式化脚本。更推荐的工作方式是：先按照 `references/quarto-formatting-patterns.md` 的格式建议编写 QMD，然后默认只运行离线格式转换，这样速度更快，也不消耗 token。
+
+```powershell
+powershell -ExecutionPolicy Bypass -File C:\Users\azu\Documents\quarto\gpu\skill\scripts\Convert-QuartoOfflineFormat.ps1 -SourceQmd ".\xxx.qmd"
+```
+
+默认输出：
+
+```text
+xxx-formatted.qmd
+xxx-formatted.pdf
+```
+
+离线格式转换会保留原有 YAML 中的标题、作者、日期、`revealjs`、`pptx`、`logo`、`reference-doc` 等配置，并补充或修正 Typst PDF 样式、目录设置、`number-sections: false`、`execute.echo: false` 和 `code-fold: false`。它只会把手动写出的单独一行提示语，例如 `注意：...`、`重要：...`、`警告：...`、`提示：...`、`Note: ...`、`Important: ...`、`Warning: ...`，自动改成 Quarto callout 块；已有 callout、表格、图片和代码块内容不会被改写。它不会根据正文语义自动猜测哪些段落应该变成 callout。如果源文件没有 `logo:`，但当前目录存在 `pic/logo_color_horizontal.png`，脚本会自动补充；如果缺少 logo 文件，会打印提示。它不会翻译正文，也不会自动生成真正的中文/英文双语版本。
 
 ## 手动改造 QMD 模板
 

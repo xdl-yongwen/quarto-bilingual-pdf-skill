@@ -25,6 +25,7 @@ __pycache__/
 # Generated bilingual QMD outputs from local test runs
 *-zh-cn.qmd
 *-en.qmd
+*-formatted.qmd
 
 # Logs and temporary files
 *.log

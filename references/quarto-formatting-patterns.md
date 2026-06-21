@@ -61,6 +61,28 @@ Use Quarto callout classes and let the bundled Typst/SCSS assets provide colors.
 | tip | 提示 | Tip | Green | Best practice, optimization |
 | caution | 谨慎 | Caution | Violet | Irreversible or delicate step |
 
+Prefer standard callout blocks in source QMD:
+
+```markdown
+::: {.callout-important title="重要"}
+这里写必须确认的关键事项。
+:::
+
+::: {.callout-warning title="警告"}
+这里写风险、限制或可能失败的情况。
+:::
+```
+
+The offline formatter also normalizes standalone one-line prompts into callouts, for example:
+
+```markdown
+注意：必须使用 eth0 端口。
+Important: Confirm the package MD5 before installation.
+Warning: Do not reboot during upgrade.
+```
+
+Existing callout blocks and fenced code blocks are not rewritten by the offline formatter.
+
 ## Terminal Code Blocks
 
 Use language labels:

@@ -1,9 +1,15 @@
 ---
 name: skill
-description: Format Quarto Markdown (.qmd) technical documents while preserving the existing XDL/GPU document layout. Use when Codex needs to polish Quarto Markdown, add colored callout blocks, apply terminal-style code block rendering, generate Chinese and English bilingual output files from either source language, and automatically export the finalized Quarto files to PDF through Quarto Typst preview/render commands.
+description: Format Quarto Markdown (.qmd) technical documents while preserving the existing XDL/GPU document layout. Use for offline QMD style normalization, colored callout blocks, terminal-style code rendering, Chinese/English bilingual QMD generation when needed, and Quarto Typst PDF export.
 ---
 
 # Quarto Bilingual Formatter
+
+## Mode Selection
+
+- Prefer the offline formatter for existing documents that only need consistent formatting and PDF export, or for new QMD files already written according to `references/quarto-formatting-patterns.md`. This avoids Codex token usage and is faster.
+- Use the Codex bilingual generation/export script only when the user needs Chinese/English output files with higher translation and rewriting accuracy.
+- If the user has manually prepared final QMD files and only needs PDF output, use `Export-QuartoBilingualPdf.ps1 -RenderOnly`.
 
 ## Core Workflow
 
@@ -94,6 +100,16 @@ With `-SourceQmd -RenderOnly`, render only the source QMD directly. Do not deriv
 When Codex generation is required, show two concise independent progress stages. Stage 1 is QMD content generation and uses its own 0-100% progress, for example `Generate QMD [########################] 100% done elapsed 00:04:05`; do not mark it complete until the target QMD files exist. Stage 2 is a separate watchdog for Codex CLI shutdown, for example `Codex exit [######------------------] 25% files ready elapsed 00:01:00`. The last stage does not mean QMD content is still being generated; it waits for the Codex subprocess to exit cleanly. Suppress Codex subprocess stdout/stderr during normal runs; only surface a concise warning when Codex fails or the target QMD files are missing.
 
 Use `-Mode preview` only when the user explicitly wants Quarto to keep a local preview server open.
+
+## Offline Formatting
+
+Use the offline formatter as the preferred default when the user wants to avoid Codex token usage and only needs deterministic QMD style normalization:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File C:\Users\azu\Documents\quarto\gpu\skill\scripts\Convert-QuartoOfflineFormat.ps1 -SourceQmd "xxx.qmd"
+```
+
+The offline formatter creates `<source-base>-formatted.qmd` and renders `<source-base>-formatted.pdf` by default. It preserves existing title, subtitle, author, date, `revealjs`, `pptx`, `logo`, and `reference-doc` values, adds the standard XDL revealjs/pptx defaults when they are missing, merges the bundled Typst include, enables TOC defaults, sets `number-sections: false`, sets `execute.echo: false`, and sets `code-fold: false`. It converts only manually marked standalone one-line prompt text such as `注意：...`, `重要：...`, `警告：...`, `提示：...`, `Note: ...`, `Important: ...`, and `Warning: ...` into standard Quarto callout blocks. It does not infer callouts from general prose semantics. It leaves existing callout blocks, tables, images, headings, and code fences unchanged. It does not translate or rewrite prose, so do not present it as a bilingual generation replacement. Use Codex generation when actual Chinese/English translation or substantial prose polishing is required.
 
 ## Reference
 
