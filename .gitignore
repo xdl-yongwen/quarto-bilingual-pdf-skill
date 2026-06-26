@@ -16,7 +16,6 @@ __pycache__/
 # Quarto / Typst generated files
 /.quarto/
 *_files/
-*.typ
 *.pdf
 *.html
 *.docx
